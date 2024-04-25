@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.santiagocontreras.controller.MenuTicketSoporteController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0">
+         <children>
+            <ImageView fitHeight="700.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/Background%20Soporte%20Facturas.png" />
+               </image></ImageView>
+            <TableView layoutX="34.0" layoutY="171.0" prefHeight="499.0" prefWidth="774.0" style="-fx-border-radius: 13; -fx-background-radius: 15;">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="43.20001220703125" text="ID" />
+                <TableColumn fx:id="colDescripcion" prefWidth="270.3999328613281" text="Descripcion" />
+                  <TableColumn fx:id="colEstatus" prefWidth="178.66668701171875" text="Estatus" />
+                  <TableColumn fx:id="colCliente" prefWidth="204.53338623046875" text="Cliente" />
+                  <TableColumn fx:id="colFactura" minWidth="0.0" prefWidth="76.8001708984375" text="Factura" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnGuardar" layoutX="957.0" layoutY="551.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Guardar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font></Button>
+            <ComboBox fx:id="cbmEstatus" layoutX="900.0" layoutY="459.0" prefHeight="38.0" prefWidth="237.0" />
+            <Button fx:id="btnRegresar" layoutX="957.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Regresar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Italic" size="22.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="taDescripcion" layoutX="865.0" layoutY="210.0" prefHeight="201.0" prefWidth="298.0" promptText="250 Caracteres" />
+            <ComboBox fx:id="cbmFactura" layoutX="518.0" layoutY="80.0" prefHeight="38.0" prefWidth="164.0" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="tfTicketId" editable="false" layoutX="31.0" layoutY="80.0" prefHeight="38.0" prefWidth="164.0" promptText="ID" style="-fx-border-radius: 10; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font></TextField>
+      <ComboBox fx:id="cmbClientes" layoutX="268.0" layoutY="80.0" prefHeight="38.0" prefWidth="164.0" />
+   </children>
+</AnchorPane>

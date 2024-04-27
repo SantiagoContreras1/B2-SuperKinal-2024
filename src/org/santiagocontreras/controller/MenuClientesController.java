@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 
@@ -29,6 +30,7 @@ import org.santiagocontreras.dao.Conexion;
 import org.santiagocontreras.dto.ClienteDTO;
 import org.santiagocontreras.model.Cliente;
 import org.santiagocontreras.system.Main;
+import org.santiagocontreras.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -123,12 +125,16 @@ public class MenuClientesController implements Initializable {
             stage.formularioClientesView(1);
         }else if(event.getSource() == btnEditar){
                                                   // Componente    // Metodo  ------> Metodo dentro es un objeto sin formato
+            
             ClienteDTO.getClienteDTO().setCliente((Cliente)tblClientes.getSelectionModel().getSelectedItem());
             stage.formularioClientesView(2);      // Cliente le da el formato, o sea lo que vamos a convertir
         }else if(event.getSource() == btnEliminar){
-            int clienteID = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
-            eliminarCliente(clienteID);
-            cargarLista();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(403).get() == ButtonType.OK){
+               int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
+               eliminarCliente(cliId);
+               cargarLista();
+            }
+                    
         }else if(event.getSource() == btnBuscar){
             tblClientes.getItems().clear();
             if(tfClienteID.getText().equals("")){

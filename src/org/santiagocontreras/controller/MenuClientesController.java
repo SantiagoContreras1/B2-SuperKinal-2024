@@ -183,6 +183,8 @@ public class MenuClientesController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_BuscarCliente(?)";
             statement = conexion.prepareStatement(sql);
+            
+            
             statement.setInt(1, Integer.parseInt(tfClienteID.getText()));
             resultSet = statement.executeQuery();
             

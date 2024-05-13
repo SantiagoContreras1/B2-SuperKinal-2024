@@ -59,6 +59,7 @@ public class FormularioClienteController implements Initializable {
         tfDireccion.setText(cliente.getDireccion());
         
     }
+    
     @FXML
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnGuardar){

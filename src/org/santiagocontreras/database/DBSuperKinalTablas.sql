@@ -4,7 +4,7 @@ create database if not exists superKinal;
 
 use superKinal;
 
-create table Clientes(
+create table Clientes(                       -- Sin FK HECHA
 	clienteId int not null auto_increment,
     nombre varchar (30) not null,
     apellido varchar(30) not null,
@@ -14,7 +14,7 @@ create table Clientes(
     primary key PK_clienteId(clienteId)
 );
 
-create table Cargos(
+create table Cargos(				-- Sin FK HECHA
 	cargoId int not null auto_increment,
 	nombreCargo varchar(30) not null,
     descripcionCargo varchar(100) not null,
@@ -35,7 +35,7 @@ create table Empleados(
     constraint FK_encargadoId foreign key(encargadoId) references Empleados(empleadoId)
 );
 
-create table Distribuidores(
+create table Distribuidores(			-- Sin FK
 	distribuidorId int not null auto_increment,
     nombreDistribuidor varchar(30) not null,
     direccionDistribuidor varchar(200) not null,
@@ -45,14 +45,15 @@ create table Distribuidores(
     primary key PK_distribuidorId(distribuidorId)
 );
 
-create table CategoriaProductos(
+
+create table CategoriaProductos(		-- Sin FK HECHA 
 	categoriaProductosId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100) not null,
     primary key PK_categoriaProductosId(categoriaProductosId)
 );
 
-create table Compras(
+create table Compras(					-- Sin FK    UNIDA A DETALLECOMPRAS
 	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10,2),
@@ -92,7 +93,7 @@ create table Productos(
     precioVentaUnitario decimal(10,2) not null,
     precioVentaMayor decimal(10,2) not null,
     precioCompra decimal(10,2) not null,
-    imagenProducto blob,
+    imagenProducto longblob,
     distribuidorId int(11) not null,
     categoriaProductosId int(11) not null,
     
@@ -113,17 +114,7 @@ create table Promociones(
     constraint FK_Promociones_Productos foreign key(productoId) references Productos(productoId)
 );
 
-create table DetalleCompra(
-	detalleCompraId int(11) not null auto_increment,
-    cantidadCompra int(11) not null,
-    productoId int(11) not null,
-    compraId int(11) not null,
-    
-    primary key PK_detalleCompraId(detalleCompraId),
-    constraint FK_DetalleCompra_Productos foreign key(productoId) references Productos(productoId),
-    constraint FK_DetalleCompra_Compras foreign key(compraId) references Compras(compraId)
-    
-);
+
 
 create table DetalleFactura(
 	detalleFacturaId int(11) not null auto_increment,
@@ -157,3 +148,20 @@ insert into Facturas(fecha,hora,clienteId,empleadoId,total) values
     ('2024-04-25', '15:30:00', 2, 3,null),
     ('2024-04-24', '12:45:00', 1, 1,null);
 
+insert into CategoriaProductos (nombreCategoria, descripcionCategoria) values
+  ('Categoría 1', 'Descripción de la Categoría 1'),
+  ('Categoría 2', 'Descripción de la Categoría 2'),
+  ('Categoría 3', 'Descripción de la Categoría 3');
+
+INSERT INTO Distribuidores (nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor, web)
+VALUES
+  ('Distribuidor 1', 'Dirección del Distribuidor 1', '1563325', '47854125',null),
+  ('Distribuidor 2', 'Dirección del Distribuidor 2', '1256358', '65236523',null),
+  ('Distribuidor 3', 'Dirección del Distribuidor 3', '154786', '96589658', 'distri3.com');
+
+SELECT * FROM Distribuidores;
+
+insert into Productos (nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra,imagenProducto, distribuidorId, categoriaProductosId) values
+  ('Producto 1', 'Descripción del producto 1', 100, 12.50, 10.00, 8.50,null, 6, 1),
+  ('Producto 2', 'Descripción del producto 2', 75, 15.00, 12.00, 9.50,null, 6, 1),
+  ('Producto 3', 'Descripción del producto 3', 50, 18.00, 15.00, 12.00,null, 6, 1);

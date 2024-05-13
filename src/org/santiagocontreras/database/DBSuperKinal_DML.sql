@@ -58,13 +58,13 @@ DELIMITER ;
 -- ------------------------------ Cargos -------------------------------------
 -- agregar
 DELIMITER $$
-	create procedure sp_agregarCargo(nomCar varchar(30),desCar varchar(100))
+	create procedure sp_agregarCargo(nomC varchar(30),desCar varchar(100))
     begin
-		insert into Cargo(nombreCargo,descripcionCargo) values
-			(nomCa, desCar);
+		insert into Cargos(nombreCargo,descripcionCargo) values
+			(nomC, desCar);
     end $$
 DELIMITER ;
- 
+call sp_agregarCargo('prueba', '1');
 -- listar
 DELIMITER $$
 create procedure sp_listarCargos()
@@ -72,15 +72,16 @@ create procedure sp_listarCargos()
 		select * from Cargos;
     end $$
 DELIMITER ;
- 
--- elimiar
+ call sp_listarCargos();
+-- eliminar
 DELIMITER $$
 create procedure sp_eliminarCargo(carId int)
 	begin
-		delete from Cargos
-		where cargoId = carId;
+		delete from Cargos where cargoId = carId;
     end $$
 DELIMITER ;
+
+-- call sp_eliminarCargo(10);
  
 -- buscar
 DELIMITER $$
@@ -102,6 +103,9 @@ create procedure sp_editarCargos(carId int, nomCar varchar(30), desCar varchar(1
             where cargoId = carId;			
     end $$
 DELIMITER ;
+
+-- call sp_editarCargos(3,'Supervisor de Bodegas','Encargado de controlar el flujo de stock');
+
  
 -- crud de Distribuidores
 -- agregar
@@ -112,6 +116,8 @@ DELIMITER $$
 			(nomDis, dirDis, nitDis, telDis, web);
     end $$
 DELIMITER ;
+
+call sp_agregarDistribuidores('aaa','ssss','33330','9898','kk');
  
 -- listar
 DELIMITER $$
@@ -120,6 +126,8 @@ create procedure sp_listarDistribuidores()
 		select * from Distribuidores;
     end $$
 DELIMITER ;
+
+-- call sp_listarDistribuidores();
  
 -- eliminar
 DELIMITER $$
@@ -177,7 +185,7 @@ DELIMITER $$
 create procedure sp_eliminarCategoriaProducto(catId int)
 	begin
 		delete from CategoriaProductos
-		where categoriaProductoId = catId;
+		where categoriaProductosId = catId;
     end $$
 DELIMITER ;
  
@@ -231,16 +239,19 @@ DELIMITER ;
 
 
 
+/*
+DELIMITER $$
+create procedure sp_ListarEmpleados()
+	begin 
+        select e.empleadoId, e.nombreEmpleado, e.apellidoEmpleado, e.sueldo, e.horaEntrada, e.horaSalida, e.encargadoId,
+        CONCAT('ID: ', e.cargoId, ' | ', 'Cargo: ', c.nombreCargo, ' | ', 'Descripcion: ', c.descripcionCargo) as 'Cargo'
+		from Empleados e
+		join Cargos c ON e.cargoId = c.cargoId;
+    end $$
+DELIMITER ;
 
 
-
-
-
-
-
-
-
-
+*/
 
 
 -- ------------------------------ Compras ----------------------------------------------------
@@ -341,19 +352,23 @@ DELIMITER ;
 -- ------------ Productos ---------------------------------------------------------------------
 -- Agregar
 DELIMITER $$
-create procedure sp_AgregarProducto(in nomP varchar(50),in desP varchar(100),in canS int(11),in preVU decimal(10,2), in preVM decimal(10,2), in preC decimal(10,2),in imgP blob,in disId int(11),in catPId int(11))
+create procedure sp_AgregarProducto(in nomP varchar(50),in desP varchar(100),in canS int(11),in preVU decimal(10,2), in preVM decimal(10,2), in preC decimal(10,2),in imgP longblob,in disId int(11),in catPId int(11))
 begin
 	insert into Productos(nombreProducto,descripcionProducto,cantidadStock,precioVentaUnitario,precioVentaMayor,precioCompra,imagenProducto,distribuidorId,categoriaProductosId) values
-		(nom,desP,canS,preVU,preVM,preC,imgP,disId,catPId);
+		(nomP,desP,canS,preVU,preVM,preC,imgP,disId,catPId);
 	
 end $$
 DELIMITER ;
-
+select * from Productos;
 -- Listar
 DELIMITER $$
 create procedure sp_ListarProducto()
 begin
-	select * from Productos;
+	select p.productoId,p.nombreProducto,p.descripcionProducto,p.cantidadStock,p.precioVentaUnitario,p.precioVentaMayor,p.precioCompra,p.imagenProducto,
+    CONCAT('ID: ',p.distribuidorId, ' | ','Nombre: ',d.nombreDistribuidor) as 'Distribuidores',
+    CONCAT('ID: ',cp.categoriaProductosId, ' | ',cp.nombreCategoria) as 'Categoria'from Productos p
+    join Distribuidores d on p.distribuidorId = d.distribuidorId
+    join CategoriaProductos cp on p.categoriaProductosId = cp.categoriaProductosId;
 end $$
 DELIMITER ;
 
@@ -495,8 +510,12 @@ DELIMITER ;
 DELIMITER $$
 	create procedure sp_AgregarEmpleado(nom varchar(30), ape varchar(30), sue decimal (10,2), horE Time, horS time, carId int)
 		begin
+        
+			
 			insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId) values 
 				(nom, ape, sue, horE, horS, carId);
+			
+			
         end $$
 DELIMITER ;
  
@@ -505,12 +524,14 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_ListarEmpleados()
 	begin 
-		select *
-			from Empleados;
+        select e.empleadoId, e.nombreEmpleado, e.apellidoEmpleado, e.sueldo, e.horaEntrada, e.horaSalida, e.encargadoId,
+        CONCAT('ID: ', e.cargoId, ' | ', 'Cargo: ', c.nombreCargo, ' | ', 'Descripcion: ', c.descripcionCargo) as 'Cargo'
+		from Empleados e
+		join Cargos c ON e.cargoId = c.cargoId;
     end $$
 DELIMITER ;
  
--- call sp_ListarEmpleados();
+call sp_ListarEmpleados();
  
 DELIMITER $$
 create procedure sp_EditarEmpleado(empId int, nom varchar(30), ape varchar(30), sue decimal (10,2), horE Time, horS time, carId int)
@@ -541,13 +562,15 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_BuscarEmpleado(empId int)
 	begin
-		select *
-			from Empleados
-            where empleadoId = empId;
+		select e.empleadoId, e.nombreEmpleado, e.apellidoEmpleado, e.sueldo, e.horaEntrada, e.horaSalida, e.encargadoId,
+        CONCAT('ID: ', e.cargoId, ' | ', 'Cargo: ', c.nombreCargo, ' | ', 'Descripcion: ', c.descripcionCargo) as 'Cargo'
+		from Empleados e
+		join Cargos c ON e.cargoId = c.cargoId
+		where empleadoId = empId;
     end $$
 DELIMITER ;
  
--- call sp_BuscarEmpleado(1);
+-- call sp_BuscarEmpleado(6);
  
 DELIMITER $$
 create procedure sp_AsignarEncargado(empId int, encId int)
@@ -561,8 +584,7 @@ DELIMITER ;
 -- call sp_AsignarEncargado(1,1);
  
 -- ---------------------- ticketSoporte -------------------------------------
- -- ***************************************** SUPUESTO ERROR DE SYNTAXYS ************************************
-DELIMITER $$
+ DELIMITER $$
 	create procedure sp_AgregarTicketSoporte(des varchar(250), cliId int(11),facId int)
 		begin
 			insert into TicketSoporte (descripcionTicket, estatus, clienteId,facturaId) values 

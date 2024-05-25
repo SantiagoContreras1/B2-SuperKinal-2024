@@ -19,27 +19,32 @@
                <image>
                   <Image url="@../image/Background%20Soporte%20Facturas.png" />
                </image></ImageView>
-            <TableView layoutX="34.0" layoutY="171.0" prefHeight="499.0" prefWidth="774.0" style="-fx-border-radius: 13; -fx-background-radius: 15;">
+            <TableView fx:id="tblTickets" layoutX="34.0" layoutY="171.0" onMouseClicked="#cargarDatosEditar" prefHeight="499.0" prefWidth="774.0" style="-fx-border-radius: 13; -fx-background-radius: 15;">
               <columns>
-                <TableColumn fx:id="colId" prefWidth="43.20001220703125" text="ID" />
+                <TableColumn fx:id="colId" prefWidth="43.20001220703125" style="-fx-border-radius: 10; -fx-background-radius: 10;" text="ID" />
                 <TableColumn fx:id="colDescripcion" prefWidth="270.3999328613281" text="Descripcion" />
                   <TableColumn fx:id="colEstatus" prefWidth="178.66668701171875" text="Estatus" />
                   <TableColumn fx:id="colCliente" prefWidth="204.53338623046875" text="Cliente" />
                   <TableColumn fx:id="colFactura" minWidth="0.0" prefWidth="76.8001708984375" text="Factura" />
               </columns>
             </TableView>
-            <Button fx:id="btnGuardar" layoutX="957.0" layoutY="551.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Guardar" textFill="WHITE">
+            <Button fx:id="btnGuardar" layoutX="957.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Guardar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font></Button>
             <ComboBox fx:id="cbmEstatus" layoutX="900.0" layoutY="459.0" prefHeight="38.0" prefWidth="237.0" />
-            <Button fx:id="btnRegresar" layoutX="957.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Regresar" textFill="WHITE">
+            <Button fx:id="btnRegresar" layoutX="957.0" layoutY="610.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Regresar" textFill="WHITE">
                <font>
                   <Font name="Arial Italic" size="22.0" />
                </font>
             </Button>
             <TextArea fx:id="taDescripcion" layoutX="865.0" layoutY="210.0" prefHeight="201.0" prefWidth="298.0" promptText="250 Caracteres" />
             <ComboBox fx:id="cbmFactura" layoutX="518.0" layoutY="80.0" prefHeight="38.0" prefWidth="164.0" />
+            <Button fx:id="btnVaciar" layoutX="915.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="46.0" prefWidth="207.0" style="-fx-background-radius: 10; -fx-background-color: #F23D7F; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 );" text="Vaciar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <TextField fx:id="tfTicketId" editable="false" layoutX="31.0" layoutY="80.0" prefHeight="38.0" prefWidth="164.0" promptText="ID" style="-fx-border-radius: 10; -fx-background-radius: 10;">

@@ -14,12 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.santiagocontreras.dao.Conexion;
 import org.santiagocontreras.dto.ClienteDTO;
 import org.santiagocontreras.model.Cliente;
 
 import org.santiagocontreras.system.Main;
+import org.santiagocontreras.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -57,16 +59,39 @@ public class FormularioClienteController implements Initializable {
         tfDireccion.setText(cliente.getDireccion());
         
     }
+    
     @FXML
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnGuardar){
             if(op == 1){
-                agregarCliente();
-                stage.menuClientesView();
+                
+                if(!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")){
+                    agregarCliente();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    stage.menuClientesView();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombre.requestFocus();
+                    return;
+                }
+                
+                
             }else if(op == 2){
-                editarCliente();
-                ClienteDTO.getClienteDTO().setCliente(null);
-                stage.menuClientesView();
+                
+                
+                
+               if(!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(404).get() == ButtonType.OK){
+                        editarCliente();
+                        ClienteDTO.getClienteDTO().setCliente(null);
+                        stage.menuClientesView();
+                    }else{
+                        SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                        tfNombre.requestFocus();
+                        return;
+                    }
+                }
+                
             }
             
             
@@ -86,6 +111,7 @@ public class FormularioClienteController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();   // Paso 1: Abrir la conexion
             String sql = "call sp_EditarCliente(?,?,?,?,?,?)";    // Preparar el String para recibir los parametros
             statement = conexion.prepareStatement(sql);           // Preparar Statement
+            
             statement.setInt(1, Integer.parseInt(tfID.getText()));
             statement.setString(2,tfNombre.getText());
             statement.setString(3,tfApellido.getText());
@@ -115,6 +141,7 @@ public class FormularioClienteController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_AgregarCliente(?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
+            
             statement.setString(1,tfNombre.getText());
             statement.setString(2,tfApellido.getText());
             statement.setString(3,tfNit.getText());

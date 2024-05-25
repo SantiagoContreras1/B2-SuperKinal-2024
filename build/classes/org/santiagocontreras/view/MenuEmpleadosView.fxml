@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="815.0" prefWidth="1875.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.santiagocontreras.controller.MenuEmpleadosController">
+   <children>
+      <ImageView fitHeight="815.0" fitWidth="1875.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/background%20Empleados.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnVolver" layoutX="1489.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="164.0" style="-fx-background-radius: 15; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 ); -fx-background-color: #F23D7F;" text="Volver" textFill="WHITE">
+         <font>
+            <Font name="Arial Italic" size="22.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tfEmpleadoId" editable="false" layoutX="27.0" layoutY="72.0" prefHeight="52.0" prefWidth="163.0" promptText="ID" style="-fx-border-radius: 10; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="34.0" layoutY="40.0" prefHeight="28.0" prefWidth="115.0" style="-fx-background-color: #FF#F2A922FFFF;" text="ID" textFill="#eeffff">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="228.0" layoutY="38.0" prefHeight="28.0" prefWidth="115.0" style="-fx-background-color: #FF#F2A922FFFF;" text="Cargo" textFill="#eeffff">
+         <font>
+            <Font name="Arial Bold" size="28.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbCargo" layoutX="228.0" layoutY="79.0" prefHeight="38.0" prefWidth="164.0" />
+      <Label layoutX="445.0" layoutY="40.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #FF#F2A922FFFF;" text="Encargado" textFill="#eeffff">
+         <font>
+            <Font name="Arial Bold" size="28.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbEncargado" layoutX="445.0" layoutY="79.0" prefHeight="38.0" prefWidth="164.0" />
+      <TableView fx:id="tblEmpleados" layoutX="42.0" layoutY="213.0" prefHeight="571.0" prefWidth="1343.0" style="-fx-border-radius: 13; -fx-background-radius: 15;">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="43.20001220703125" style="-fx-border-radius: 10; -fx-background-radius: 10;" text="ID" />
+            <TableColumn fx:id="colNombre" prefWidth="153.59994506835938" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="184.00001525878906" text="Apellido" />
+            <TableColumn fx:id="colSueldo" prefWidth="117.60003662109375" text="Sueldo" />
+            <TableColumn fx:id="colHoraEntrada" minWidth="0.0" prefWidth="148.800048828125" text="Hora de Entrada" />
+            <TableColumn fx:id="colHoraSalida" prefWidth="145.59991455078125" text="Hora de Salida" />
+            <TableColumn fx:id="colCargo" prefWidth="274.40008544921875" text="Cargo" />
+            <TableColumn fx:id="colEncargado" prefWidth="271.20000000000005" text="Encargado" />
+         </columns>
+      </TableView>
+      <GridPane layoutX="1489.0" layoutY="213.0" prefHeight="288.0" prefWidth="314.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="200.8" minWidth="10.0" prefWidth="152.8" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="164.79999084472655" minWidth="0.0" prefWidth="155.2" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="btnAgregar" layoutX="15.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="87.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 ); -fx-background-color: #F23D7F;" text="Agregar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="87.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 ); -fx-background-color: #F23D7F;" text="Editar" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="87.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 ); -fx-background-color: #F23D7F;" text="Eliminar" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="146.0" style="-fx-background-radius: 10; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 9, 0.0 , 0.0 , 0 ); -fx-background-color: #F23D7F;" text="Reportes" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+      <TextField fx:id="tfBuscar" layoutX="667.0" layoutY="72.0" prefHeight="52.0" prefWidth="212.0" promptText="Ingrese un ID">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="21.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btnBuscar" layoutX="879.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="74.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/lupa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="667.0" layoutY="38.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #FF#F2A922FFFF;" text="Buscar" textFill="#eeffff">
+         <font>
+            <Font name="Arial Bold" size="28.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

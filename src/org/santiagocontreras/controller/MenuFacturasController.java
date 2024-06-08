@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.santiagocontreras.dao.Conexion;
 import org.santiagocontreras.model.Factura;
+import org.santiagocontreras.report.GenerarReporte;
 import org.santiagocontreras.system.Main;
 
 /**
@@ -45,7 +46,7 @@ public class MenuFacturasController implements Initializable {
     @FXML
     TableColumn colFacturaId,colFecha,colHora,colCliente,colEmpleado,colTotal,colProductoId;
     @FXML
-    Button btnVolver,btnAgregar,btnEditar,btnEliminar,btnBuscar;
+    Button btnVolver,btnAgregar,btnEditar,btnEliminar,btnBuscar,btnReportes;
     @FXML
     TextField tfFacturaId;
 
@@ -86,6 +87,8 @@ public class MenuFacturasController implements Initializable {
                     tblFacturas.getSortOrder().add(colFacturaId);
                 }
             }
+        }else if(event.getSource() == btnReportes){
+            GenerarReporte.getInstance().generarFactura(Integer.parseInt(colFacturaId.getText()));
         }
     }
     
